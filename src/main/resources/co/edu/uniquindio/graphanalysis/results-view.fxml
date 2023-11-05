@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.graphanalysis.controllers.ResultsController">
+    <Label layoutX="309.0" layoutY="42.0" text="Tiempos de ejecución">
+      <font>
+         <Font name="System Bold" size="18.0" />
+      </font></Label>
+   <Label layoutX="97.0" layoutY="118.0" text="A continuación se muestran los resultados de los tiempos de ejecución de los 12 algoritmos del camino más corto." />
+   <StackedBarChart fx:id="resultsBarChart" layoutX="52.0" layoutY="163.0" prefHeight="400.0" prefWidth="699.0">
+     <xAxis>
+       <CategoryAxis side="BOTTOM" />
+     </xAxis>
+     <yAxis>
+       <NumberAxis side="LEFT" />
+     </yAxis>
+   </StackedBarChart>
+</Pane>
