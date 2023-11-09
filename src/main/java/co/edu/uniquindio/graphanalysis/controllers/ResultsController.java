@@ -7,10 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.StackedBarChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tooltip;
@@ -23,7 +20,7 @@ import java.util.ResourceBundle;
 
 public class ResultsController implements Initializable {
     @FXML
-    private StackedBarChart<String, Number> resultsBarChart;
+    private BarChart<String, Number> resultsBarChart;
 
     @FXML
     private Button BtnEjecutar;
