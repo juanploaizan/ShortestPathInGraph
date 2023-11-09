@@ -12,9 +12,14 @@ public class TestCasesGenerator {
      * @param args the arguments
      */
     public static void main(String[] args) {
-        TestCasesGenerator testCasesGenerator = new TestCasesGenerator(100); // Tamaño del grafo
+       TestCasesGenerator testCasesGenerator = new TestCasesGenerator(10000); // Tamaño del grafo
         int[][] graph = testCasesGenerator.generateGraph();
-        testCasesGenerator.saveGraphToFile(graph, "graph1.txt"); // Nombre del archivo
+        testCasesGenerator.saveGraphToFile(graph, "graph10000.txt"); // Nombre del archivo
+
+       /* int[] arregloOriginal = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120};
+
+        // Serialización del arreglo y escritura en un archivo de texto
+        serializarArreglo("500.txt", arregloOriginal);*/
     }
 
     private final int size;
@@ -89,5 +94,49 @@ public class TestCasesGenerator {
         }
         return graph;
     }
+
+    public static void serializarArreglo(String nombreArchivo, int[] arreglo) {
+        try {
+            FileWriter fileWriter = new FileWriter("resultados/"+nombreArchivo);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            for (int numero : arreglo) {
+                bufferedWriter.write(Integer.toString(numero));
+                bufferedWriter.newLine(); // Agregar una nueva línea para separar los números
+            }
+
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static int[] deserializarArreglo(String nombreArchivo) {
+        int[] arregloLeido = null;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("resultados/"+nombreArchivo));
+            String linea;
+            int indice = 0;
+
+            while ((linea = bufferedReader.readLine()) != null) {
+                if (arregloLeido == null) {
+                    arregloLeido = new int[1];
+                } else {
+                    int[] nuevoArreglo = new int[indice + 1];
+                    System.arraycopy(arregloLeido, 0, nuevoArreglo, 0, arregloLeido.length);
+                    arregloLeido = nuevoArreglo;
+                }
+
+                arregloLeido[indice] = Integer.parseInt(linea);
+                indice++;
+            }
+
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return arregloLeido;
+    }
+
 
 }
