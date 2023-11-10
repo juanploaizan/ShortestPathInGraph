@@ -95,11 +95,20 @@ public class Dijkstra {
         public static void main(String[] args)
         {
 
-            int graph[][] = TestCasesGenerator.loadGraphFromFile("graph10000.txt",10000);
-            Dijkstra t = new Dijkstra(graph.length);
+            int graph[][] = TestCasesGenerator.loadGraphFromFile("graph8192.txt",8192);
 
-            // Function call
+            long tiempoInicio = System.currentTimeMillis();
+
+            Dijkstra t = new Dijkstra(graph.length);
             t.dijkstra(graph, 0);
+
+            long tiempoFin = System.currentTimeMillis();
+            long tiempoTotal = tiempoFin - tiempoInicio;
+
+            System.out.println("Tiempo total para la ejecución: " + tiempoTotal);
+
+           // TestCasesGenerator.saveResult(tiempoTotal, 1, "750.txt");
+
         }
     }
 // This code is contributed by Aakash Hasija
