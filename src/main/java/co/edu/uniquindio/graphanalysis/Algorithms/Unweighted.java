@@ -1,43 +1,48 @@
 package co.edu.uniquindio.graphanalysis.Algorithms;
 
-//8
+// 8
 // Java program to find shortest path in an undirected
 // graph
+import co.edu.uniquindio.graphanalysis.TestCasesGenerator;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Unweighted {
+    public static void main(String[] args) {
 
-    // Driver Program
-    public static void main(String args[])
-    {
-        // No of vertices
-        int v = 8;
+        int v = 1000; // No of vertices
+
+        int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph1000.txt", v);
 
         // Adjacency list for storing which vertices are connected
-        ArrayList<ArrayList<Integer>> adj =
-                new ArrayList<ArrayList<Integer>>(v);
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>(v);
+
         for (int i = 0; i < v; i++) {
-            adj.add(new ArrayList<Integer>());
+            adj.add(new ArrayList<>());
         }
 
         // Creating graph given in the above diagram.
         // add_edge function takes adjacency list, source
         // and destination vertex as argument and forms
         // an edge between them.
-        addEdge(adj, 0, 1);
-        addEdge(adj, 0, 3);
-        addEdge(adj, 1, 2);
-        addEdge(adj, 3, 4);
-        addEdge(adj, 3, 7);
-        addEdge(adj, 4, 5);
-        addEdge(adj, 4, 6);
-        addEdge(adj, 4, 7);
-        addEdge(adj, 5, 6);
-        addEdge(adj, 6, 7);
-        int source = 0, dest = 7;
-        printShortestDistance(adj, source, dest, v);
+        for (int i = 0; i < v; i++) {
+            for (int j = i + 1; j < v; j++) {
+                if (loadedGraph[i][j] != 0) {
+                    addEdge(adj, i, j);
+                }
+            }
+        }
+        int source = 0;
+        long startTime = System.currentTimeMillis();
+        printShortestDistance(adj, source, 1000, v);
+        long endTime = System.currentTimeMillis();
+        long duration = (endTime - startTime);
+        System.out.println("Tiempo de ejecución: " + duration + " ms");
+
+        // Save the result
+        // Change the file name, according to the size of the graph
+        TestCasesGenerator.saveResult(duration, 8, "1000.txt");
     }
 
     // function to form edge between two vertices

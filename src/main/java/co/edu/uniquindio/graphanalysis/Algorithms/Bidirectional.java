@@ -3,6 +3,8 @@ package co.edu.uniquindio.graphanalysis.Algorithms;
 //12
 // Java program for Bidirectional BFS search
 // to check path between two vertices
+import co.edu.uniquindio.graphanalysis.TestCasesGenerator;
+
 import java.io.*;
 import java.util.*;
 
@@ -149,7 +151,7 @@ class Graph {
                 // print the path and exit the program
                 printPath(s_parent, t_parent, s, t,
                         intersectNode);
-                System.exit(0);
+                return 1;
             }
         }
         return -1;
@@ -157,37 +159,41 @@ class Graph {
 }
 
 public class Bidirectional {
-    // Driver code
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
+
         // no of vertices in graph
-        int n = 15;
+        int n = 1000;
 
         // source vertex
         int s = 0;
 
         // target vertex
-        int t = 14;
+        int t = n-1;
+
+        int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph" + n + ".txt", n);
+
 
         // create a graph given in above diagram
         Graph g = new Graph(n);
-        g.addEdge(0, 4);
-        g.addEdge(1, 4);
-        g.addEdge(2, 5);
-        g.addEdge(3, 5);
-        g.addEdge(4, 6);
-        g.addEdge(5, 6);
-        g.addEdge(6, 7);
-        g.addEdge(7, 8);
-        g.addEdge(8, 9);
-        g.addEdge(8, 10);
-        g.addEdge(9, 11);
-        g.addEdge(9, 12);
-        g.addEdge(10, 13);
-        g.addEdge(10, 14);
+        for (int i = 0; i < n; i++) {
+            g.addEdge(i, i);
+            for (int j = i + 1; j < n; j++) {
+                if (loadedGraph[i][j] != 0) {
+                    g.addEdge(i, j);
+                }
+            }
+        }
+        long startTime = System.currentTimeMillis();
         if (g.biDirSearch(s, t) == -1)
             System.out.printf(
                     "Path don't exist between %d and %d", s, t);
+        long endTime = System.currentTimeMillis();
+        long duration = (endTime - startTime);
+        System.err.println("Tiempo de ejecución: " + duration + " ms");
+
+        // Save the result
+        // Change the file name, according to the size of the graph
+        TestCasesGenerator.saveResult(duration, 12, n + ".txt");
     }
 }
 

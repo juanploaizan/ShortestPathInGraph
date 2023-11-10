@@ -1,7 +1,10 @@
 package co.edu.uniquindio.graphanalysis;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class TestCasesGenerator {
 
@@ -9,12 +12,12 @@ public class TestCasesGenerator {
 
     /**
      * Main method
-     * @param args the arguments
      */
     public static void main(String[] args) {
-       TestCasesGenerator testCasesGenerator = new TestCasesGenerator(10000); // Tamaño del grafo
+
+       TestCasesGenerator testCasesGenerator = new TestCasesGenerator(1000); // Tamaño del grafo
         int[][] graph = testCasesGenerator.generateGraph();
-        testCasesGenerator.saveGraphToFile(graph, "graph10000.txt"); // Nombre del archivo
+        testCasesGenerator.saveGraphToFile(graph, "graph1000.txt"); // Nombre del archivo
 
        /* int[] arregloOriginal = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120};
 
@@ -42,9 +45,15 @@ public class TestCasesGenerator {
         for (int i = 0; i < size; i++) {
             graph[i][i] = 0;
             for (int j = i + 1; j < size; j++) {
-                int weight = random.nextInt(101);
-                graph[i][j] = weight;
-                graph[j][i] = weight;
+                double prob = random.nextDouble(); // Probabilidad entre 0 y 1
+                if (prob < 0.85) {
+                    graph[i][j] = 0;
+                    graph[j][i] = 0;
+                } else {
+                int weight = random.nextInt(100) + 1;
+                    graph[i][j] = weight;
+                    graph[j][i] = weight;
+                }
             }
         }
         return graph;
@@ -95,21 +104,49 @@ public class TestCasesGenerator {
         return graph;
     }
 
-    public static void serializarArreglo(String nombreArchivo, int[] arreglo) {
+    // Esta función recibe un long y un int como parámetros
+    // y guarda el valor del long en la línea indicada por el int
+    // en un archivo txt, sin modificar las otras líneas
+    public static void saveResult(long valor, int linea, String nombreArchivo) {
+        // Se crea un objeto File para el archivo txt
+        File archivo = new File("results/" + nombreArchivo);
+        // Se crea una lista para almacenar las líneas del archivo
+        List<String> lineas = new ArrayList<>();
         try {
-            FileWriter fileWriter = new FileWriter("resultados/"+nombreArchivo);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-            for (int numero : arreglo) {
-                bufferedWriter.write(Integer.toString(numero));
-                bufferedWriter.newLine(); // Agregar una nueva línea para separar los números
+            // Se crea un objeto Scanner para leer el archivo
+            Scanner sc = new Scanner(archivo);
+            // Se lee cada línea del archivo y se añade a la lista
+            while (sc.hasNextLine()) {
+                lineas.add(sc.nextLine());
             }
-
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            // Se cierra el Scanner
+            sc.close();
+            // Se verifica que la línea indicada sea válida
+            if (linea >= 1 && linea <= lineas.size()) {
+                // Se convierte el valor del long a String
+                String valorStr = String.valueOf(valor);
+                // Se reemplaza la línea indicada por el valor
+                lineas.set(linea - 1, valorStr);
+                // Se crea un objeto PrintWriter para escribir el archivo
+                PrintWriter pw = new PrintWriter(archivo);
+                // Se escribe cada línea de la lista en el archivo
+                for (String l : lineas) {
+                    pw.println(l);
+                }
+                // Se cierra el PrintWriter
+                pw.close();
+                // Se muestra un mensaje de éxito
+                System.out.println("Valor guardado correctamente.");
+            } else {
+                // Se muestra un mensaje de error
+                System.out.println("Línea inválida.");
+            }
+        } catch (FileNotFoundException e) {
+            // Se muestra un mensaje de excepción
+            System.out.println("Archivo no encontrado.");
         }
     }
+
 
     public static int[] deserializarArreglo(String nombreArchivo) {
         int[] arregloLeido = null;

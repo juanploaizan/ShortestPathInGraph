@@ -1,10 +1,10 @@
 package co.edu.uniquindio.graphanalysis.Algorithms;
 
-import java.util.*;
+import co.edu.uniquindio.graphanalysis.TestCasesGenerator;
 
 public class Johnsons {
     // Number of vertices in the graph
-    static final int V = 4;
+    static final int V = 1000;
     static final int INF = 99999;
 
     // A utility function to find the vertex with minimum
@@ -24,7 +24,6 @@ public class Johnsons {
     }
 
     // A utility function to print the constructed distance
-    // array
     static void printSolution(int[][] dist)
     {
         System.out.println(
@@ -41,8 +40,7 @@ public class Johnsons {
         }
     }
 
-    // Solves the all-pairs shortest path problem using
-    // Floyd Warshall algorithm
+    // Solves the all-pairs shortest path problem using Floyd Warshall algorithm
     static void johnsons(int[][] graph)
     {
         int[][] dist = new int[V][V];
@@ -87,22 +85,37 @@ public class Johnsons {
     }
 
     // driver program to test above function
-    public static void main(String[] args)
-    {
-        /* Let us create the following weighted graph
-                10
-           (0)------->(3)
-            |         /|\
-          5 |          |
-            |          | 1
-           \|/         |
-           (1)------->(2)
-                3           */
-        int[][] graph = { { 0, 5, INF, 10 },
-                { INF, 0, 3, INF },
-                { INF, INF, 0, 1 },
-                { INF, INF, INF, 0 } };
-        // Print the solution
+    public static void main(String[] args) {
+
+        int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph1000.txt", 1000);
+
+        // Formatted graph
+        int[][] graph = new int[V][V];
+
+        // Fill the graph
+        for (int i = 0; i < V; i++) {
+            graph[i][i] = 0;
+            for (int j = i + 1; j < V; j++) {
+                if (loadedGraph[i][j] == 0) {
+                    graph[i][j] = INF;
+                    graph[j][i] = INF;
+                } else {
+                    graph[i][j] = loadedGraph[i][j];
+                    graph[j][i] = loadedGraph[i][j];
+                }
+            }
+        }
+
+        long startTime = System.currentTimeMillis();
+        // Solve the problem
         johnsons(graph);
+        long endTime = System.currentTimeMillis();
+        long duration = (endTime - startTime);
+        System.out.println("Duration: " + duration + "ms");
+
+        // Save the result
+        // Change the file name, according to the size of the graph
+        TestCasesGenerator.saveResult(duration, 4, "1000.txt");
+
     }
 }
