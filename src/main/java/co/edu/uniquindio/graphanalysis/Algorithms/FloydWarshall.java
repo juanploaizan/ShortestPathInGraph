@@ -6,7 +6,7 @@ import java.lang.*;
 // Java program for Floyd Warshall All Pairs Shortest Path algorithm.
 
 class AllPairShortestPath {
-    final static int INF = 99999, V = 1000;
+    final static int INF = 99999, V = 4096;
 
     static void floydWarshall(int[][] dist) {
         int i, j, k;
@@ -64,7 +64,7 @@ class AllPairShortestPath {
     }
 
     public static void main(String[] args) {
-        int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph1000.txt", 1000);
+        int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph4096.txt", 4096);
         int[][] graph = new int[V][V];
 
         for(int i=0; i<V; i++) {
@@ -89,6 +89,6 @@ class AllPairShortestPath {
         System.out.println("Duration: " + duration + "ms");
 
         // Save the result
-        TestCasesGenerator.saveResult(duration, 3, "1024.txt");
+        TestCasesGenerator.saveResult(duration, 3, "4096.txt");
     }
 }

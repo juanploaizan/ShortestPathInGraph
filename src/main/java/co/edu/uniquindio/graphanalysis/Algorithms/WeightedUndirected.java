@@ -155,13 +155,13 @@ class Tuple<T, U> implements Comparable<Tuple<T, U> > {
 // Driver code
 public class WeightedUndirected {
     public static void main(String[] args) {
-        int V = 1000;
-        int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph1000.txt", 1000);
+        int V = 1024;
+        int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph1024.txt", 1024);
 
         Undirected g = new Undirected(V);
 
         for(int i=0; i<V; i++) {
-            // No se define la diagonal en un arreglo, porque el algorimo solo usa las aristas bidireccionales
+            // No se define la diagonal en un arreglo, porque el algoritmo solo usa las aristas bidireccionales
 
             //       | Con esto, no se cuentan las "uniones" (numeros) de la diagonal hacia abajo (ni la diagonal)
             // j=i+1 | Porque al agregar una arista con ".addEdge" se interpreta como una arista
@@ -185,6 +185,6 @@ public class WeightedUndirected {
         System.out.println("Duration: " + duration + "ms");
 
         // Save the result
-        TestCasesGenerator.saveResult(duration, 11, "1000.txt");
+        TestCasesGenerator.saveResult(duration, 11, "1024.txt");
     }
 }

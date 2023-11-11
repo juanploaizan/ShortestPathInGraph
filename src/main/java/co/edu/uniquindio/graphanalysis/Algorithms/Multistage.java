@@ -7,7 +7,7 @@ import co.edu.uniquindio.graphanalysis.TestCasesGenerator;
 
 class Multistage {
 
-    static int N = 1000;
+    static int N = 4096;
     static int INF = 99999;
 
     // Returns shortest distance from 0 to
@@ -50,7 +50,7 @@ class Multistage {
 
     // Driver code
     public static void main(String[] args) {
-        int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph1000.txt", 1000);
+        int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph4096.txt", 4096);
         int[][] graph = new int[N][N];
 
         for(int i=0; i<N; i++) {
@@ -78,12 +78,12 @@ class Multistage {
         };
 
         long startTime = System.currentTimeMillis();
-            System.out.println("Distancia mas corta del nodo 1 al 1000: "+shortestDist(graph));
+            System.out.println("Distancia mas corta del nodo 1 al "+N+": "+shortestDist(graph));
         long endTime = System.currentTimeMillis();
         long duration = (endTime - startTime);
         System.out.println("Duration: " + duration + "ms");
 
         // Save the result
-        TestCasesGenerator.saveResult(duration, 7, "1024.txt");
+        TestCasesGenerator.saveResult(duration, 7, "4096.txt");
     }
 }
