@@ -87,7 +87,7 @@ public class WeightCycle {
     }
 
     public static void main(String[] args) {
-        int[][] adjacencyMatrix = TestCasesGenerator.loadGraphFromFile("graph500.txt",500);
+        int[][] adjacencyMatrix = TestCasesGenerator.loadGraphFromFile("graph8192.txt", 8192);
         V = adjacencyMatrix.length;
         edges = new Vector[V];
         for (int i = 0; i < V; i++) {
@@ -104,5 +104,5 @@ public class WeightCycle {
         }
 
         System.out.printf("%.5f", minAvgWeight());
-    }
+    } 
 }

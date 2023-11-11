@@ -2,6 +2,7 @@ package co.edu.uniquindio.graphanalysis;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -14,10 +15,10 @@ public class TestCasesGenerator {
      * Main method
      */
     public static void main(String[] args) {
-
-       TestCasesGenerator testCasesGenerator = new TestCasesGenerator(8192); // Tamaño del grafo
-        int[][] graph = testCasesGenerator.generateGraph();
-        testCasesGenerator.saveGraphToFile(graph, "graph8192.txt"); // Nombre del archivo
+    	int tam = 1400;
+       TestCasesGenerator testCasesGenerator = new TestCasesGenerator(tam); // Tamaño del grafo
+        int[][] graph = testCasesGenerator.generateGraphWeight();
+        testCasesGenerator.saveGraphToFile(graph, "graph"+tam+".txt"); // Nombre del archivo
 
        /* int[] arregloOriginal = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120};
 
@@ -49,13 +50,49 @@ public class TestCasesGenerator {
                 if (prob < 0.85) {
                     graph[i][j] = 0;
                     graph[j][i] = 0;
+                } else if (j % 2 == 0){
+                int weight = random.nextInt(1);
+                    graph[i][j] = weight;
+                    graph[j][i] = weight;
                 } else {
-                int weight = random.nextInt(100) + 1;
+                	int weight = random.nextInt(100) + 1;
                     graph[i][j] = weight;
                     graph[j][i] = weight;
                 }
             }
         }
+        return graph;
+    }
+    public int[][] generateBinaryGraph() {
+        int[][] graph = new int[size][size];
+        Random random = new Random();
+        for (int i = 0; i < size; i++) {
+            graph[i][i] = 0;
+            for (int j = i + 1; j < size; j++) {
+            	double prob = random.nextDouble();
+            	if (prob < 0.002) {
+                    graph[i][j] = 0;
+                    graph[j][i] = 0;
+                }else {
+                	graph[i][j] = 1;
+                	graph[j][i] = 1;
+                }
+            }
+        }
+        return graph;
+    }
+    
+    public int[][] generateGraphWeight() {
+        int[][] graph = new int[size][size];
+        Random random = new Random();
+        for (int i = 0; i < size; i++) {
+            graph[i][i] = 0;
+            for (int j = i + 1; j < size; j++) {
+                	int weight = random.nextInt(100)+6;
+                    graph[i][j] = weight;
+                    graph[j][i] = weight;
+                }
+            }
         return graph;
     }
 
@@ -174,6 +211,82 @@ public class TestCasesGenerator {
         }
         return arregloLeido;
     }
-
-
+    
+    public static int contarVertices(int[][] matriz) {
+    	int limite = matriz.length - (matriz.length % 3); //hasta dónde itera
+    	ArrayList<Integer> numeros = new ArrayList<Integer>();
+    	int cantidad = 0;
+    	
+    	for (int i = 0; i < limite; i+=3){
+            for (int j = 0; j < limite; j+=3){
+            	boolean flag1 = false;
+            	boolean flag2 = false;
+            	int aux1 = matriz[i][j];
+            	int aux2 = matriz[i+2][j+2];
+            	//comprobar que el vertice no está ya
+            	for(int x = 0; x < numeros.size(); x++) { 
+            		if(aux1 == numeros.get(x) ) { //evalua si el from es un nodo existente
+                		flag1 = true;
+            		}
+            		if(aux2 == numeros.get(x) ) { //evalua si el to es un nodo existente
+            			flag2 = true;
+            		}
+            	}
+            	if(flag1 != true) { //evalua si el from es un nodo existente
+            		numeros.add(aux1);
+            		cantidad++;
+        		}
+        		if(flag2 != true) { //evalua si el to es un nodo existente
+        			numeros.add(aux2);
+        			cantidad++;
+        		}
+            }
+        }
+    	return cantidad;
+    }
+    
+    public static int contarVertices2(int[] matriz) {
+    	int limite = matriz.length - (matriz.length % 3); //hasta dónde itera
+    	ArrayList<Integer> numeros = new ArrayList<Integer>();
+    	int cantidad = 0;
+    	
+    	for (int i = 0; i < limite; i+=3){
+            	boolean flag1 = false;
+            	boolean flag2 = false;
+            	int aux1 = matriz[i];
+            	int aux2 = matriz[i+1];
+            	//comprobar que el vertice no está ya
+            	for(int x = 0; x < numeros.size(); x++) { 
+            		if(aux1 == numeros.get(x) ) { //evalua si el from es un nodo existente
+                		flag1 = true;
+            		}
+            		if(aux2 == numeros.get(x) ) { //evalua si el to es un nodo existente
+            			flag2 = true;
+            		}
+            	}
+            	if(flag1 != true) { //evalua si el from es un nodo existente
+            		numeros.add(aux1);
+            		cantidad++;
+        		}
+        		if(flag2 != true) { //evalua si el to es un nodo existente
+        			numeros.add(aux2);
+        			cantidad++;
+        		}
+            }
+    	return cantidad;
+    }
+    
+    public static int encontrarMayorPeso(int[][] matriz) {
+    	int limite = matriz.length; //hasta dónde itera
+    	int mayor = 0;
+    	for (int i = 0; i < limite; i++){
+            for (int j = 0; j < limite; j++){
+            	if(matriz[i][j] > mayor) {
+            		mayor = matriz[i][j];
+            	}
+            }
+        }
+    	System.err.println(mayor);
+    	return mayor;
+    }
 }
