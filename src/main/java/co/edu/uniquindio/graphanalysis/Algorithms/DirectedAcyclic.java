@@ -81,7 +81,9 @@ public class DirectedAcyclic {
             DirectedAcyclic t = new DirectedAcyclic();
 
 
-            int[][] adjacencyMatrix = TestCasesGenerator.loadGraphFromFile("graph10000.txt",10000);
+            int[][] adjacencyMatrix = TestCasesGenerator.loadGraphFromFile("graph8192.txt",8192);
+
+            long tiempoInicio = System.currentTimeMillis();
 
             Graph g = t.newGraph(adjacencyMatrix.length);
 
@@ -96,6 +98,14 @@ public class DirectedAcyclic {
             int s = 1;
             System.out.println("Following are shortest distances from source " + s);
             g.shortestPath(s);
+
+            long tiempoFin = System.currentTimeMillis();
+            long tiempoTotal = tiempoFin - tiempoInicio;
+
+            System.out.println("Tiempo total para la ejecución: " + tiempoTotal);
+
+            TestCasesGenerator.saveResult(tiempoTotal, 5, "1000.txt");
+
         }
     }
 

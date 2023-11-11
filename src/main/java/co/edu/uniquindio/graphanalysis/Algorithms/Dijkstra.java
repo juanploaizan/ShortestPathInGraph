@@ -107,7 +107,7 @@ public class Dijkstra {
 
             System.out.println("Tiempo total para la ejecución: " + tiempoTotal);
 
-           // TestCasesGenerator.saveResult(tiempoTotal, 1, "750.txt");
+           TestCasesGenerator.saveResult(tiempoTotal, 1, "750.txt");
 
         }
     }
