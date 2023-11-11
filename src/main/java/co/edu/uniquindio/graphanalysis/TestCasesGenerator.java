@@ -15,9 +15,9 @@ public class TestCasesGenerator {
      */
     public static void main(String[] args) {
 
-       TestCasesGenerator testCasesGenerator = new TestCasesGenerator(1000); // Tamaño del grafo
+       TestCasesGenerator testCasesGenerator = new TestCasesGenerator(8192); // Tamaño del grafo
         int[][] graph = testCasesGenerator.generateGraph();
-        testCasesGenerator.saveGraphToFile(graph, "graph1000.txt"); // Nombre del archivo
+        testCasesGenerator.saveGraphToFile(graph, "graph8192.txt"); // Nombre del archivo
 
        /* int[] arregloOriginal = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120};
 
