@@ -1,17 +1,14 @@
 package co.edu.uniquindio.graphanalysis.Algorithms;
 
-// Java program for Floyd Warshall All Pairs Shortest
-// Path algorithm.
-import java.io.*;
+import co.edu.uniquindio.graphanalysis.TestCasesGenerator;
 import java.lang.*;
-import java.util.*;
+// 3
+// Java program for Floyd Warshall All Pairs Shortest Path algorithm.
 
 class AllPairShortestPath {
-    final static int INF = 99999, V = 4;
+    final static int INF = 99999, V = 8192;
 
-    void floydWarshall(int dist[][])
-    {
-
+    static void floydWarshall(int[][] dist) {
         int i, j, k;
 
         /* Add all vertices one by one
@@ -51,8 +48,7 @@ class AllPairShortestPath {
         printSolution(dist);
     }
 
-    void printSolution(int dist[][])
-    {
+    static void printSolution(int dist[][]) {
         System.out.println(
                 "The following matrix shows the shortest "
                         + "distances between every pair of vertices");
@@ -67,27 +63,32 @@ class AllPairShortestPath {
         }
     }
 
-    // Driver's code
-    public static void main(String[] args)
-    {
-        /* Let us create the following weighted graph
-           10
-        (0)------->(3)
-        |         /|\
-        5 |          |
-        |          | 1
-        \|/         |
-        (1)------->(2)
-           3           */
-        int graph[][] = { { 0, 5, INF, 10 },
-                { INF, 0, 3, INF },
-                { INF, INF, 0, 1 },
-                { INF, INF, INF, 0 } };
-        AllPairShortestPath a = new AllPairShortestPath();
+    public static void main(String[] args) {
+        int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph"+V+".txt", V);
+        int[][] graph = new int[V][V];
 
-        // Function call
-        a.floydWarshall(graph);
+        for(int i=0; i<V; i++) {
+            graph[i][i] = 0;
+
+            for(int j=i+1; j<V; j++) {
+                if(loadedGraph[i][j] == 0) {
+                    graph[i][j] = INF;
+                    graph[j][i] = INF;
+                }
+                else {
+                    graph[i][j] = loadedGraph[i][j];
+                    graph[j][i] = loadedGraph[j][i];
+                }
+            }
+        }
+
+        long startTime = System.currentTimeMillis();
+            floydWarshall(graph);
+        long endTime = System.currentTimeMillis();
+        long duration = (endTime - startTime);
+        System.out.println("Duration: " + duration + "ms");
+
+        // Save the result
+        TestCasesGenerator.saveResult(duration, 3, V+".txt");
     }
 }
-
-// Contributed by Aakash Hasija
