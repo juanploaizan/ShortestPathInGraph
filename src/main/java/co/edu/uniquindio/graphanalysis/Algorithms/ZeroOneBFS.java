@@ -4,6 +4,13 @@ package co.edu.uniquindio.graphanalysis.Algorithms;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import co.edu.uniquindio.graphanalysis.TestCasesGenerator;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.Random;
 
 public class ZeroOneBFS {
     private static class Node {
@@ -16,10 +23,9 @@ public class ZeroOneBFS {
         }
     }
 
-    private static final int numVertex = 9;
-    private ArrayList<Node>[] edges = new ArrayList[numVertex];
-
-    public ZeroOneBFS() {
+    ArrayList<Node>[] edges;
+    public ZeroOneBFS(int v) {
+    	edges = new ArrayList[v];
         for (int i = 0; i < edges.length; i++) {
             edges[i] = new ArrayList<Node>();
         }
@@ -30,11 +36,11 @@ public class ZeroOneBFS {
         edges[v].add(edges[v].size(), new Node(u, wt));
     }
 
-    public void zeroOneBFS(int src) {
+    public void zeroOneBFS(int src, int numVertices) {
 
         // initialize distances from given source
-        int[] dist = new int[numVertex];
-        for (int i = 0; i < numVertex; i++) {
+        int[] dist = new int[numVertices];
+        for (int i = 0; i < numVertices; i++) {
             dist[i] = Integer.MAX_VALUE;
         }
 
@@ -67,29 +73,32 @@ public class ZeroOneBFS {
             }
         }
 
+        //imprime las distancias del origen a todos
         for (int i = 0; i < dist.length; i++) {
-            System.out.print(dist[i] + " ");
+            System.out.print(dist[i] + " \n");
         }
     }
 
     public static void main(String[] args) {
-        ZeroOneBFS graph = new ZeroOneBFS();
-        graph.addEdge(0, 1, 0);
-        graph.addEdge(0, 7, 1);
-        graph.addEdge(1, 7, 1);
-        graph.addEdge(1, 2, 1);
-        graph.addEdge(2, 3, 0);
-        graph.addEdge(2, 5, 0);
-        graph.addEdge(2, 8, 1);
-        graph.addEdge(3, 4, 1);
-        graph.addEdge(3, 5, 1);
-        graph.addEdge(4, 5, 1);
-        graph.addEdge(5, 6, 1);
-        graph.addEdge(6, 7, 1);
-        graph.addEdge(7, 8, 1);
-        int src = 0;//source node
-        graph.zeroOneBFS(src);
-        return;
+        int tam = 1300;
+    	int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph" + tam +".txt", tam);
+    	int v = loadedGraph.length;
+    	ZeroOneBFS graph = new ZeroOneBFS(v);
+    	
+    	for(int i = 0; i < v; i++) {
+    		for(int j = 0; j < v; j++) {
+    			graph.addEdge(i, j, loadedGraph[i][j]);
+        	}
+    	}
+    	
+        long startTime = System.currentTimeMillis();
+        graph.zeroOneBFS(0, tam); 
+        long endTime = System.currentTimeMillis();
+        long duration = (endTime - startTime);
+        System.err.println("Tiempo de ejecución: " + duration + " ms");
+        
+        // Save the result
+        // Change the file name, according to the size of the graph
+        TestCasesGenerator.saveResult(duration, 10, tam + ".txt");
     }
 }
-
