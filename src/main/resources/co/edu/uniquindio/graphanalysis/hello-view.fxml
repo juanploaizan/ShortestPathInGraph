@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="helloPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.graphanalysis.controllers.HelloController">
+  <Label layoutX="129.0" layoutY="42.0" text="Proyecto Final de Análisis de Algoritmos" textAlignment="CENTER">
+    <font>
+      <Font name="System Bold" size="18.0" />
+    </font>
+  </Label>
+  <Label alignment="CENTER" layoutX="47.0" layoutY="188.0" prefHeight="119.0" prefWidth="506.0" text="Este proyecto en Java 11 con JavaFX tiene como finalidad evaluar el rendimiento de 12 algoritmos de camino más corto en grafos, implementados con técnicas diversas, incluyendo enfoques iterativos y divide y vencerás. Se realizará la medición de los tiempos de ejecución en ocho casos de prueba representativos para simular una carga computacional significativa. Los resultados se representarán gráficamente mediante un diagrama de barras en la interfaz de usuario JavaFX, lo que permitirá una comparación clara y concisa del rendimiento de los algoritmos evaluados." wrapText="true" />
+  <Button fx:id="executeButton" layoutX="198.0" layoutY="334.0" mnemonicParsing="false" onAction="#executeTestCases" text="Ejecutar los casos de prueba">
+    <font>
+      <Font name="System Bold" size="14.0" />
+    </font>
+  </Button>
+  <Label layoutX="50.0" layoutY="97.0" text="Integrantes:">
+    <font>
+      <Font name="System Bold" size="13.0" />
+    </font>
+  </Label>
+  <Label layoutX="130.0" layoutY="97.0" text="- Juan Pablo Loaiza Nieto." />
+  <Label layoutX="130.0" layoutY="114.0" text="- Julián Acosta Taborda." />
+  <Label layoutX="130.0" layoutY="131.0" text="- Juan Felipe López Castaño." />
+  <Label layoutX="130.0" layoutY="148.0" text="- José Alejandro Zambrano Jiménez." />
+</Pane>
