@@ -78,42 +78,6 @@ public class ZeroOneBFS {
     }
 
     public static void main(String[] args) {
-//    	Random random = new Random();
-//        int[][] matriz = new int[10][10];
-//        for (int i = 0; i < 10; i++){
-//            for (int j = 0; j < 10; j++){
-//                matriz[i][j] = random.nextInt(100) + 1;
-//            }
-//        }
-    	
-//    	int limite = loadedGraph.length - (loadedGraph.length % 3);
-//      ZeroOneBFS graph = new ZeroOneBFS();
-//      int[] listafrom = new int[loadedGraph.length/3];
-//      int[] listato = new int[loadedGraph.length/3];
-//      int[] listawt = new int[loadedGraph.length/3];
-//      int contador1 = 0;
-//      int contador2 = 0;
-//      int contador3 = 0;
-//
-//    //crea las asociaciones entre nodos
-//      for (int i = 0; i < limite; i++){
-//      	for (int j = 0; j < limite; j++){
-//      		if(j % 2 == 0) {
-//      			listawt[contador3] = loadedGraph[i][j];
-//      			contador3++;
-//      			break;
-//      		}
-//      		if(j % 3 == 0) {
-//      			listato[contador2] = loadedGraph[i][j];
-//      			contador2++;
-//      			break;
-//      		}
-//      		else {
-//      			listafrom[contador1] = loadedGraph[i][j];
-//      			contador1++;
-//      		}
-//      	}
-//      }
         
         int tam = 1300;
     	int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph" + tam +".txt", tam);
