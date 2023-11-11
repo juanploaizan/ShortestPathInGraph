@@ -1,11 +1,10 @@
 package co.edu.uniquindio.graphanalysis.Algorithms;
 
-//11
-// Java program to find shortest weighted
-// cycle in undirected graph
+import co.edu.uniquindio.graphanalysis.TestCasesGenerator;
 import java.util.*;
 
-// weighted undirected Graph
+// 11
+// Java program to find shortest weighted cycle in undirected graph
 
 class Edge {
     public int u;
@@ -19,8 +18,7 @@ class Undirected {
     List<Tuple<Integer, Integer> >[] adj;
     List<Edge> edge;
 
-    public Undirected(int V)
-    {
+    public Undirected(int V) {
         this.V = V;
         adj = new List[V];
         for (int i = 0; i < V; i++) {
@@ -28,9 +26,9 @@ class Undirected {
         }
         edge = new ArrayList<>();
     }
+
     // function add edge to graph
-    public void addEdge(int u, int v, int w)
-    {
+    public void addEdge(int u, int v, int w) {
         adj[u].add(new Tuple<>(v, w));
         adj[v].add(new Tuple<>(u, w));
         Edge e = new Edge();
@@ -41,8 +39,7 @@ class Undirected {
     }
 
     // function remove edge from undirected graph
-    public void removeEdge(int u, int v, int w)
-    {
+    public void removeEdge(int u, int v, int w) {
         adj[u].remove(new Tuple<>(v, w));
         adj[v].remove(new Tuple<>(u, w));
     }
@@ -50,9 +47,7 @@ class Undirected {
     // find the shortest path from source to sink using
     // Dijkstra’s shortest path algorithm [ Time complexity
     // O(E logV )]
-    public int shortestPath(int u, int v)
-    {
-
+    public int shortestPath(int u, int v) {
         // Create a set to store vertices that are being
         // preprocessed
         SortedSet<Tuple<Integer, Integer> > setds
@@ -134,8 +129,7 @@ class Tuple<T, U> implements Comparable<Tuple<T, U> > {
     public final T first;
     public final U second;
 
-    public Tuple(T first, U second)
-    {
+    public Tuple(T first, U second) {
         this.first = first;
         this.second = second;
     }
@@ -152,35 +146,45 @@ class Tuple<T, U> implements Comparable<Tuple<T, U> > {
         }
     }
 
-    public String toString()
-    {
+    public String toString() {
         return "(" + first.toString() + ", "
                 + second.toString() + ")";
     }
 }
+
 // Driver code
-public class Main {
-    public static void main(String[] args)
-    {
-        int V = 9;
+public class WeightedUndirected {
+    public static void main(String[] args) {
+        int V = 1000;
+        int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph1000.txt", 1000);
+
         Undirected g = new Undirected(V);
-        g.addEdge(0, 1, 4);
-        g.addEdge(0, 7, 8);
-        g.addEdge(1, 2, 8);
-        g.addEdge(1, 7, 11);
-        g.addEdge(2, 3, 7);
-        g.addEdge(2, 8, 2);
-        g.addEdge(2, 5, 4);
-        g.addEdge(3, 4, 9);
-        g.addEdge(3, 5, 14);
-        g.addEdge(4, 5, 10);
-        g.addEdge(5, 6, 2);
-        g.addEdge(6, 7, 1);
-        g.addEdge(6, 8, 6);
-        g.addEdge(7, 8, 7);
-        System.out.println(g.findMinimumCycle());
+
+        for(int i=0; i<V; i++) {
+            // No se define la diagonal en un arreglo, porque el algorimo solo usa las aristas bidireccionales
+
+            //       | Con esto, no se cuentan las "uniones" (numeros) de la diagonal hacia abajo (ni la diagonal)
+            // j=i+1 | Porque al agregar una arista con ".addEdge" se interpreta como una arista
+            //       | o "edge" bidireccional
+            for(int j=i+1; j<V; j++) {
+                if(loadedGraph[i][j] == 0) {
+                    // Si es 0 es INF, por lo que esa arista NO existe, entonces se continua a la siguiente iteracion
+                    continue;
+                }
+
+                // En caso de que SI exista la arista (edge), se guarda de
+                // que nodo a que nodo va la arista y el peso.
+                g.addEdge(i, j, loadedGraph[i][j]);
+            }
+        }
+
+        long startTime = System.currentTimeMillis();
+            System.out.println(g.findMinimumCycle());
+        long endTime = System.currentTimeMillis();
+        long duration = (endTime - startTime);
+        System.out.println("Duration: " + duration + "ms");
+
+        // Save the result
+        TestCasesGenerator.saveResult(duration, 11, "1000.txt");
     }
 }
-
-// This code is contributed by NarasingaNikhil
-

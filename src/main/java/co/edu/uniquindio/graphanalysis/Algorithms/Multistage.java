@@ -1,14 +1,14 @@
 package co.edu.uniquindio.graphanalysis.Algorithms;
 
+import co.edu.uniquindio.graphanalysis.TestCasesGenerator;
+// 7
 // Java program to find shortest distance
 // in a multistage graph.
-import java.io.*;
-import java.util.*;
 
 class Multistage {
 
-    static int N = 8;
-    static int INF = Integer.MAX_VALUE;
+    static int N = 1000;
+    static int INF = 99999;
 
     // Returns shortest distance from 0 to
     // N-1.
@@ -49,22 +49,41 @@ class Multistage {
     }
 
     // Driver code
-    public static void main(String[] args)
-    {
-        // Graph stored in the form of an
-        // adjacency Matrix
-        int[][] graph = new int[][] {
+    public static void main(String[] args) {
+        int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph1000.txt", 1000);
+        int[][] graph = new int[N][N];
+
+        for(int i=0; i<N; i++) {
+            graph[i][i] = 0;
+            for (int j = i + 1; j < N; j++) {
+                if (loadedGraph[i][j] == 0) {
+                    graph[i][j] = INF;
+                    graph[j][i] = INF;
+                } else {
+                    graph[i][j] = loadedGraph[i][j];
+                    graph[j][i] = loadedGraph[j][i];
+                }
+            }
+        }
+
+        int[][] graph2 = new int[][] {
                 { INF, 1, 2, 5, INF, INF, INF, INF },
                 { INF, INF, INF, INF, 4, 11, INF, INF },
                 { INF, INF, INF, INF, 9, 5, 16, INF },
                 { INF, INF, INF, INF, INF, INF, 2, INF },
                 { INF, INF, INF, INF, INF, INF, INF, 18 },
                 { INF, INF, INF, INF, INF, INF, INF, 13 },
-                { INF, INF, INF, INF, INF, INF, INF, 2 }
+                { INF, INF, INF, INF, INF, INF, INF, 2 },
+                { INF, INF, INF, INF, INF, INF, INF, INF }
         };
 
-        System.out.println(shortestDist(graph));
+        long startTime = System.currentTimeMillis();
+            System.out.println("Distancia mas corta del nodo 1 al 1000: "+shortestDist(graph));
+        long endTime = System.currentTimeMillis();
+        long duration = (endTime - startTime);
+        System.out.println("Duration: " + duration + "ms");
+
+        // Save the result
+        TestCasesGenerator.saveResult(duration, 7, "1024.txt");
     }
 }
-
-// This code has been contributed by 29AjayKumar
