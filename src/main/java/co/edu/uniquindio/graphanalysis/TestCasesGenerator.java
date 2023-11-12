@@ -16,8 +16,8 @@ public class TestCasesGenerator {
      */
     public static void main(String[] args) {
     	int tam = 4096;
-       TestCasesGenerator testCasesGenerator = new TestCasesGenerator(tam); // Tamaño del grafo
-        int[][] graph = testCasesGenerator.generateBinaryGraph();
+        TestCasesGenerator testCasesGenerator = new TestCasesGenerator(tam); // Tamaño del grafo
+        int[][] graph = testCasesGenerator.generateGraphWeight();
         testCasesGenerator.saveGraphToFile(graph, "graph"+tam+".txt"); // Nombre del archivo
 
        /* int[] arregloOriginal = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120};

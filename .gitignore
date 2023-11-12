@@ -39,10 +39,6 @@ bin/
 .vscode/
 
 ### Mac OS ###
-<<<<<<< HEAD
-.DS_Store
-=======
 .DS_Store
 
-*8192.txt
->>>>>>> master
+test_cases/graph8192.txt
