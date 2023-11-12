@@ -88,7 +88,7 @@ class BellmanFord {
 
     public static void main(String[] args){
         // Function call
-    	int tam = 1400;
+    	int tam = 1024;
     	int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph" + tam +".txt", tam);
     	BellmanFord graph = new BellmanFord(loadedGraph.length, (tam*tam));
     	int v = loadedGraph.length;

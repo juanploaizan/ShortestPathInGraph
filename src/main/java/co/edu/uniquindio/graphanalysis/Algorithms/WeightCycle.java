@@ -87,7 +87,7 @@ public class WeightCycle {
     }
 
     public static void main(String[] args) {
-        int[][] adjacencyMatrix = TestCasesGenerator.loadGraphFromFile("graph8192.txt", 8192);
+        int[][] adjacencyMatrix = TestCasesGenerator.loadGraphFromFile("graph1300.txt", 1300);
         V = adjacencyMatrix.length;
         edges = new Vector[V];
         for (int i = 0; i < V; i++) {

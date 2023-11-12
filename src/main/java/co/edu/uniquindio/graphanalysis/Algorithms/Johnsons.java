@@ -87,7 +87,7 @@ public class Johnsons {
     // driver program to test above function
     public static void main(String[] args) {
 
-        int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph1000.txt", 1000);
+        int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph1250.txt", 1250);
 
         // Formatted graph
         int[][] graph = new int[V][V];
