@@ -188,7 +188,7 @@ public class TestCasesGenerator {
     public static int[] deserializarArreglo(String nombreArchivo) {
         int[] arregloLeido = null;
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("resultados/"+nombreArchivo));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("results/"+nombreArchivo));
             String linea;
             int indice = 0;
 
