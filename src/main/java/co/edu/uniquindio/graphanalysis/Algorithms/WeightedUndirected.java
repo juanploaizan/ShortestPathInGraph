@@ -155,7 +155,7 @@ class Tuple<T, U> implements Comparable<Tuple<T, U> > {
 // Driver code
 public class WeightedUndirected {
     public static void main(String[] args) {
-        int V = 1024;
+        int V = 4096;
         int[][] loadedGraph = TestCasesGenerator.loadGraphFromFile("graph"+V+".txt", V);
 
         Undirected g = new Undirected(V);
